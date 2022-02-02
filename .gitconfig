@@ -1,0 +1,7 @@
+[user]
+	name = Amiel Nava
+	email = ######@#####.com
+[core]
+	editor = nvim
+[alias]
+    lg = log --topo-order --all --graph --date=local --pretty
