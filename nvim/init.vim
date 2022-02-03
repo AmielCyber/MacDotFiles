@@ -1,6 +1,6 @@
 " Vim/Neovim Settings
 set tabstop=4               " Number of spaces that a <Tab> in the file counts for
-set softtabstop=4	        " Number of spaces when pressing tab while performin edits
+set softtabstop=4           " Number of spaces when pressing tab while performin edits
 set shiftwidth=4            " Newline indentation
 set expandtab               " Indents while going on insert
 set smartindent             " Smart indent when starting a new line
@@ -49,6 +49,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'hrsh7th/cmp-nvim-lua'                                         " nvim-cmp source for neovim Lua API
     Plug 'hrsh7th/cmp-cmdline'                                          " nvim-cmp source for vim's cmdline
     Plug 'hrsh7th/nvim-cmp'                                             " The completion engine plugin
+
+    Plug 'ray-x/lsp_signature.nvim'                                     " Class/Function signatures
 
     Plug 'kyazdani42/nvim-web-devicons'                                 " Icons to be used with other plugins
     Plug 'mfussenegger/nvim-jdtls'                                      " LSP java using eclipse's LSP
@@ -113,19 +115,42 @@ lua <<EOF
   -- Must install first with nvim-lsp-installer using command ':LspInstall language' in nvim
   -- C and C++ LSP only to Mac
   require('lspconfig')['clangd'].setup {
-    capabilities = capabilities
+    -- Have our signature plugin attached
+    capabilities = require "lsp_signature".setup({
+        bind = true,
+        handler_opts = {
+        border = "rounded"
+        }
+    })
   }
   -- Python LSP
-  require('lspconfig')['pyright'].setup {
-    capabilities = capabilities
+  require('lspconfig')['pylsp'].setup {
+    -- Have our signature plugin attached
+    capabilities = require "lsp_signature".setup({ 
+        bind = true,
+        handler_opts = {
+        border = "rounded"
+        }
+    })
   }
   -- Javascript LSP
   require('lspconfig')['eslint'].setup {
-    capabilities = capabilities
+    capabilities = require "lsp_signature".setup({
+        bind = true, 
+        handler_opts = {
+        border = "rounded"
+        }
+    })
   }
   -- Java LSP must be configured first via the jdtls documentation
-  require('lspconfig')['jdtls'].setup {
-    capabilities = capabilities
+  require('lspconfig')['tsserver'].setup {
+    -- Have our signature plugin attached
+    capabilities = require "lsp_signature".setup({ 
+        bind = true,
+        handler_opts = {
+        border = "rounded"
+        }
+    })
   }
   -- signature configure
 EOF
