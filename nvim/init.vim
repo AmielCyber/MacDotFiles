@@ -60,6 +60,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'kdheepak/tabline.nvim'                                        " Buffers are shown as tabs works with lualine
     Plug 'mbbill/undotree'                                              " Undo tree plug in
     Plug 'sainnhe/sonokai'                                              " Colorscheme
+    " Markdown Preview
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 call plug#end()
 
 " Nvim cmp configuration settings
@@ -161,10 +163,11 @@ lua <<EOF
   }
   -- Java LSP must be configured first via the jdtls documentation
   require('lspconfig')['jdtls'].setup {
-    capabilities = {
-        capabilities,
-
-        }
+    capabilities = capabilities
+  }
+  -- Markdown LSP
+  require('lspconfig')['remark_ls'].setup {
+    capabilities = capabilities
   }
   -- Javascript LSP
   require('lspconfig')['tsserver'].setup {
