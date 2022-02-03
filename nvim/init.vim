@@ -41,6 +41,9 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'hrsh7th/cmp-vsnip'                                            " Use snipets within cmp enginge
     Plug 'hrsh7th/vim-vsnip'                                            " Snippet package
     Plug 'hrsh7th/vim-vsnip-integ'                                      " Snippet completion & expansion
+    " Optional snippet addons
+    Plug 'ray-x/lsp_signature.nvim'                                     " Class/Function signatures
+    Plug 'onsails/lspkind-nvim'                                         " Show Icons in suggestion and control win size
 
     " Plugins required for the nvim-cmp completion engine
     Plug 'hrsh7th/cmp-nvim-lsp'                                         " Plugin for cmp to communicate with the LSP
@@ -50,11 +53,11 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'hrsh7th/cmp-cmdline'                                          " nvim-cmp source for vim's cmdline
     Plug 'hrsh7th/nvim-cmp'                                             " The completion engine plugin
 
-    Plug 'ray-x/lsp_signature.nvim'                                     " Class/Function signatures
-
+    " All Other Plugins
     Plug 'kyazdani42/nvim-web-devicons'                                 " Icons to be used with other plugins
     Plug 'mfussenegger/nvim-jdtls'                                      " LSP java using eclipse's LSP
     Plug 'nvim-lualine/lualine.nvim'                                    " Status Line Display
+    Plug 'kdheepak/tabline.nvim'                                        " Buffers are shown as tabs works with lualine
     Plug 'mbbill/undotree'                                              " Undo tree plug in
     Plug 'sainnhe/sonokai'                                              " Colorscheme
 call plug#end()
@@ -63,9 +66,17 @@ call plug#end()
 set completeopt=menu,menuone,noselect
 lua <<EOF
   -- Setup nvim-cmp.
+  local lspkind = require('lspkind')
   local cmp = require'cmp'
 
   cmp.setup({
+    -- Suggestion window format
+    formatting = {
+      format = lspkind.cmp_format({
+        with_text = false, -- do not show text alongside icons
+        maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      })
+    },
     snippet = {
       expand = function(args)
         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
@@ -81,6 +92,21 @@ lua <<EOF
         c = cmp.mapping.close(),
       }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      -- Tab completion from tjdevries...sorry TJ :(
+      ["<Tab>"] = function(fallback)
+      if cmp.visible() then
+         cmp.select_next_item()
+       else
+         fallback()
+       end
+     end,
+     ["<S-Tab>"] = function(fallback)
+       if cmp.visible() then
+         cmp.select_prev_item()
+       else
+         fallback()
+       end
+     end,
     },
     sources = cmp.config.sources({
       { name = 'path' },
@@ -113,44 +139,32 @@ lua <<EOF
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   -- Language Server Protocol calls to communicate with nvm-cmp for text completion and suggestions
   -- Must install first with nvim-lsp-installer using command ':LspInstall language' in nvim
+
+  -- Signature configuration for our signature plugin
+  local signatureSetup = { 
+      bind = true, -- This is mandatory, otherwise border config won't get registered.
+      handler_opts = {
+      border = "rounded"
+      }
+  }
   -- C and C++ LSP only to Mac
   require('lspconfig')['clangd'].setup {
     -- Have our signature plugin attached
-    capabilities = require "lsp_signature".setup({
-        bind = true,
-        handler_opts = {
-        border = "rounded"
-        }
-    })
+    capabilities = require"lsp_signature".setup(signatureSetup)
   }
   -- Python LSP
   require('lspconfig')['pylsp'].setup {
     -- Have our signature plugin attached
-    capabilities = require "lsp_signature".setup({ 
-        bind = true,
-        handler_opts = {
-        border = "rounded"
-        }
-    })
-  }
-  -- Javascript LSP
-  require('lspconfig')['eslint'].setup {
-    capabilities = require "lsp_signature".setup({
-        bind = true, 
-        handler_opts = {
-        border = "rounded"
-        }
-    })
+    capabilities = require"lsp_signature".setup(signatureSetup)
   }
   -- Java LSP must be configured first via the jdtls documentation
+  require('lspconfig')['jdtls'].setup {
+    capabilities = require"lsp_signature".setup(signatureSetup)
+  }
+  -- Javascript LSP
   require('lspconfig')['tsserver'].setup {
     -- Have our signature plugin attached
-    capabilities = require "lsp_signature".setup({ 
-        bind = true,
-        handler_opts = {
-        border = "rounded"
-        }
-    })
+    capabilities = require"lsp_signature".setup(signatureSetup)
   }
   -- signature configure
 EOF
@@ -159,6 +173,7 @@ EOF
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+  
   ensure_installed = "maintained",
 
   -- Install languages synchronously (only applied to `ensure_installed`)
@@ -183,23 +198,61 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" Lua status line configuration
+" Tabline plugin configuration
 lua << END
-require'lualine'.setup {
-  options = {
-    -- use sonokai theme
-    theme = 'sonokai'
-  }
+require'tabline'.setup{
+    enable = true,
+    options = {
+        show_tabs_always = false,
+        show_devicons = true,
+        show_filename_only = true,
+        modified_icon = "+ ",
+    }
 }
 END
 
+" Lua status line configuration
+lua << END
+require'lualine'.setup {
+  tabline = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { require'tabline'.tabline_buffers },
+    lualine_x = { require'tabline'.tabline_tabs },
+    lualine_y = {},
+    lualine_z = {},
+  },
+  options = {
+    -- use sonokai theme
+    theme = 'sonokai'
+  },
+}
+END
+
+" Mapping configurations
 let mapleader = " "         " Hot key to use with plugins or custom key mappings
-" Using Lua functions
 " Telescope remmaps hotkeys
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+" Window key mappings move window location
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+" Key mapping for undo tree
+nnoremap <leader>u :UndotreeShow<CR>
+" Window key mapping for opening a new window
+nnoremap <leader>pv :wincmd v<bar> :Ex<bar> :vertical resize 30<CR>
+" Window key mapping for resizing a window
+nnoremap <silent> <Leader>+ :vertical resize +5<CR>
+nnoremap <silent> <Leader>- :vertical resize -5<CR>
+" Buffer Navigation mapping
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>bf :bf<CR>
+nnoremap <leader>bl :bl<CR>
 
 " Colorscheme settings for neovim
 " sonokai_style: atlantis, andromeda, shusia, default, maia, espresso
@@ -213,15 +266,3 @@ let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 
-" Window key mappings move window location
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>l :wincmd l<CR>
-" Key mapping for undo tree
-nnoremap <leader>u :UndotreeShow<CR>
-" Window key mapping for opening a new window
-nnoremap <leader>pv :wincmd v<bar> :Ex<bar> :vertical resize 30<CR>
-" Window key mapping for resizing a window
-nnoremap <silent> <Leader>+ :vertical resize +5<CR>
-nnoremap <silent> <Leader>- :vertical resize -5<CR>
