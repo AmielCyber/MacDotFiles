@@ -133,13 +133,6 @@ lua <<EOF
     })
   })
 
-
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  -- Language Server Protocol calls to communicate with nvm-cmp for text completion and suggestions
-  -- Must install first with nvim-lsp-installer using command ':LspInstall language' in nvim
-
   -- Signature configuration for our signature plugin
   local signatureSetup = { 
       bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -147,26 +140,36 @@ lua <<EOF
       border = "rounded"
       }
   }
+
+  -- Setup lspconfig.
+  local capabilities = {
+      require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      require"lsp_signature".setup(signatureSetup),
+  }
+
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  -- Language Server Protocol calls to communicate with nvm-cmp for text completion and suggestions
+  -- Must install first with nvim-lsp-installer using command ':LspInstall language' in nvim
+
   -- C and C++ LSP only to Mac
   require('lspconfig')['clangd'].setup {
-    -- Have our signature plugin attached
-    capabilities = require"lsp_signature".setup(signatureSetup)
+    capabilities = capabilities
   }
   -- Python LSP
   require('lspconfig')['pylsp'].setup {
-    -- Have our signature plugin attached
-    capabilities = require"lsp_signature".setup(signatureSetup)
+    capabilities = capabilities
   }
   -- Java LSP must be configured first via the jdtls documentation
   require('lspconfig')['jdtls'].setup {
-    capabilities = require"lsp_signature".setup(signatureSetup)
+    capabilities = {
+        capabilities,
+
+        }
   }
   -- Javascript LSP
   require('lspconfig')['tsserver'].setup {
-    -- Have our signature plugin attached
-    capabilities = require"lsp_signature".setup(signatureSetup)
+    capabilities = capabilities
   }
-  -- signature configure
 EOF
 
 " Tree sitter lua configuration to enable text highlighting
