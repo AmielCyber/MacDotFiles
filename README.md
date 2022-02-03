@@ -1,2 +1,2 @@
 # MacDotFiles
-Mac dot files for the terminal, nvim, vim, VSCode, and more
+Mac OS dot files for the terminal, nvim, vim, VSCode, and more
