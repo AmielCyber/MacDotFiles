@@ -17,7 +17,7 @@ You are free to use this configuration, but cannot guarantee that it will work s
     │   └── text.txt
     └── undodir
 ```
-### Actual Directory in Your Home Folder
+### Actual Directory in Your Unix Home Directory
 ```bash
 ~/
 └─── .config
