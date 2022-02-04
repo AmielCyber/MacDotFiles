@@ -84,5 +84,6 @@ Following plugins for the zsh shell:
 iTerm color
 * [iter2-monokai-pro](https://github.com/ayatmaulana/iterm2-monokai-pro)
 
-### Note
+### TO DO
 I may add a vim configuration slightly adjusted from my linux terminal in the future.
+Seperate neovim settings, plugins, mappings, and lua code in different files instead of having everythin in a single init.vim file.
