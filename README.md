@@ -68,3 +68,4 @@ You are free to use this configuration, but cannot guarantee that it will work s
 ## iTerm2 Configuration
 ### Screenshots
 ![iTerm Configuration](https://github.com/AmielCyber/MacDotFiles/blob/main/screenShots/iTerm2ConfigScreen.png)
+#### Desktop Wallpaper by [Alena Aenami](https://www.artstation.com/aenamiart)
