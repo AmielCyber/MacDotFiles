@@ -76,6 +76,7 @@ My neovim configuration is inspired by the following members of the neovim commu
 ### Screenshots
 ![iTerm Configuration](https://github.com/AmielCyber/MacDotFiles/blob/main/screenShots/iTerm2ConfigScreen.png)
 Desktop Wallpaper by [Alena Aenami](https://www.artstation.com/aenamiart)
+
 Following plugins for the zsh shell:
 * [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
 * [powerlevel10k](https://github.com/romkatv/powerlevel10k)
