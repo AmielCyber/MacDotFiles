@@ -1,5 +1,5 @@
 # NeoVim Configuration
-This is a reminder on how to setup my current configuration for other machines. I also made this as a walkthrough for
+This is a reminder on how to setup my current configuration for other machines, since I just switched from vim to neovim. I also made this as a walkthrough for
 one of my friends who was curious about neovim.
 You are free to use this configuration, but cannot guarantee that it will work straight of the box.
 ## Screenshots
@@ -59,4 +59,8 @@ You are free to use this configuration, but cannot guarantee that it will work s
         * You may need to add more to the body for more configurations to your liking
 #### Note:
 * Some plugins may have npm dependencies or other dependencies
+* My neovim configuration is inspired by the following members of the neovim community
+    * [@ThePrimeagen](https://github.com/ThePrimeagen)
+    * [@TJ DeVries](https://github.com/tjdevries)
+    * And many more!
 
