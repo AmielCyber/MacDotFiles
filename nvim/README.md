@@ -60,7 +60,7 @@ You are free to use this configuration, but cannot guarantee that it will work s
 #### Note:
 * Some plugins may have npm dependencies or other dependencies
 * My neovim configuration is inspired by the following members of the neovim community
-    * [@ThePrimeagen](https://github.com/ThePrimeagen)
-    * [@TJ DeVries](https://github.com/tjdevries)
+    * [ThePrimeagen](https://github.com/ThePrimeagen)
+    * [TJ DeVries](https://github.com/tjdevries)
     * And many more!
 
