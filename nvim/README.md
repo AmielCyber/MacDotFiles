@@ -3,7 +3,7 @@ This is a reminder on how to setup my current configuration for other machines. 
 one of my friends who was curious about neovim.
 You are free to use this configuration, but cannot guarantee that it will work straight of the box.
 ## Screenshots
-
+![Neovim Configuration](https://github.com/AmielCyber/MacDotFiles/blob/main/screenShots/neovimConfigScreen.png)
 ## Dot Files Directory
 ### Github File Directory
 ```bash
