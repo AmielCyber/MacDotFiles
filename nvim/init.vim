@@ -165,10 +165,6 @@ lua <<EOF
   require('lspconfig')['jdtls'].setup {
     capabilities = capabilities
   }
-  -- Markdown LSP
-  require('lspconfig')['remark_ls'].setup {
-    capabilities = capabilities
-  }
   -- Javascript LSP
   require('lspconfig')['tsserver'].setup {
     capabilities = capabilities

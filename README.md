@@ -50,22 +50,39 @@ You are free to use this configuration, but cannot guarantee that it will work s
 5. In neovim run `:PlugInstall`
 6. Install Luanguage Server Protocol for your languages 
     * LSP installation goes like this:
-        * First install [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)'s language parser for correct 
+        * First **install [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)'s** language parser for correct 
         color highlighting using this vim command `:TSInstall <language_to_install>` 
-        * Then install the Language Server Protocol using the [nvim-lsp-installer](https://github.com/williamboman/nvim-lsp-installer)
+        * Then **install the Language Server Protocol** using the [nvim-lsp-installer](https://github.com/williamboman/nvim-lsp-installer)
         plugin with the following vim command `:LSPInstall <language>` then choosing the luanguage server for that language 
-            * Note, that you may have to install some dependencies for that server if it fails to attach ([LSP plugins](https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins))
+            * **Additional configuration may be required** for LSP configuration.
+            * See [nvim-lspconfig/doc/server_configurations.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#remark_ls)
+            for dependencies and additional configuration for that particular server.
 7. Setup the cababilities for the LSP to run with the cmp plugin in the lua `cmp.setup({` funciton in the init.vim file 
     * Should be a simple line with LSP's defaults like this: 
         * `require['lspconfig']['YOUR_LANGUAGE_SERVER'].setup{ cababilities = capabilites}`
-        * You may need to add more to the body for more configurations to your liking
+            * You may need to add more to the body for more options to your liking or required configurations for that server
+            * Refer to the [nvim-lspconfig doc](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#remark_ls) for those configurations
 #### Note:
-* Some plugins may have npm dependencies or other dependencies
-* My neovim configuration is inspired by the following members of the neovim community
-    * [ThePrimeagen](https://github.com/ThePrimeagen)
-    * [TJ DeVries](https://github.com/tjdevries)
-    * And many more!
+Some plugins may have language package manager dependencies or other dependencies
+* Be sure to read the readme file for any plugin
+    * You can do so, by addding the github address to the short hand notation in the plugin section in init.vim
+        * For example: `Plug 'neovim/nvim-lspconfig'` => https://github.com/neovim/nvim-lspconfig
+
+My neovim configuration is inspired by the following members of the neovim community
+* [ThePrimeagen](https://github.com/ThePrimeagen)
+* [TJ DeVries](https://github.com/tjdevries)
+* And many more!
 ## iTerm2 Configuration
 ### Screenshots
 ![iTerm Configuration](https://github.com/AmielCyber/MacDotFiles/blob/main/screenShots/iTerm2ConfigScreen.png)
-#### Desktop Wallpaper by [Alena Aenami](https://www.artstation.com/aenamiart)
+Desktop Wallpaper by [Alena Aenami](https://www.artstation.com/aenamiart)
+Following plugins for the zsh shell:
+* [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
+* [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+* [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+
+iTerm color
+* [iter2-monokai-pro](https://github.com/ayatmaulana/iterm2-monokai-pro)
+
+### Note
+I may add a vim configuration slightly adjusted from my linux terminal in the future.
