@@ -65,4 +65,6 @@ You are free to use this configuration, but cannot guarantee that it will work s
     * [ThePrimeagen](https://github.com/ThePrimeagen)
     * [TJ DeVries](https://github.com/tjdevries)
     * And many more!
-
+## iTerm2 Configuration
+### Screenshots
+![iTerm Configuration](https://github.com/AmielCyber/MacDotFiles/blob/main/screenShots/iTerm2ConfigScreen.png)
