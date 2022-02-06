@@ -25,43 +25,46 @@ set mouse=nv                " Mouse support. Yikes! Sorry I know is a sin....
 
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
-    " Plugins required for language server protocol syntax highlighting 
+
+    " Plugins required for Language Server Protocol
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}         " Language parser for color highlighting
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'                  " Location and syntax aware text objects
     Plug 'neovim/nvim-lspconfig'                                        " Neovim Language Server Protocol
-    Plug 'williamboman/nvim-lsp-installer'                              " Easily install LSPs
+    Plug 'williamboman/nvim-lsp-installer'                              " LSP Manager
 
-    " Plugins required for using telescope
+    " Plugins required for telescope
     Plug 'nvim-lua/plenary.nvim'                                        " Lua functions for Telescope
     Plug 'nvim-telescope/telescope.nvim'                                " Telescope for quick file finding within nvim
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }   " Telescope fuzzy finder
     Plug 'nvim-lua/popup.nvim'                                          " Pop up windows within nvim
+
+    " Plugins required for the nvim-cmp completion engine(LSP Auto Completer)
+    Plug 'hrsh7th/cmp-nvim-lsp'                                         " Plugin for cmp to communicate with the LSP
+    Plug 'hrsh7th/cmp-buffer'                                           " nvim-cmp source for buffer words
+    Plug 'hrsh7th/cmp-path'                                             " Auto path completer
+    Plug 'hrsh7th/cmp-nvim-lua'                                         " Lua auto completer
+    Plug 'hrsh7th/cmp-cmdline'                                          " nvim-cmp source for vim's cmdline
+    Plug 'hrsh7th/nvim-cmp'                                             " The completion engine plugin
 
     " Plugins required for snipped feature in nvim cmp
     Plug 'hrsh7th/cmp-vsnip'                                            " Use snipets within cmp enginge
     Plug 'hrsh7th/vim-vsnip'                                            " Snippet package
     Plug 'hrsh7th/vim-vsnip-integ'                                      " Snippet completion & expansion
     " Optional snippet addons
-    Plug 'ray-x/lsp_signature.nvim'                                     " Class/Function signatures
-    Plug 'onsails/lspkind-nvim'                                         " Show Icons in suggestion and control win size
-
-    " Plugins required for the nvim-cmp completion engine
-    Plug 'hrsh7th/cmp-nvim-lsp'                                         " Plugin for cmp to communicate with the LSP
-    Plug 'hrsh7th/cmp-buffer'                                           " nvim-cmp source for buffer words
-    Plug 'hrsh7th/cmp-path'                                             " For cmp to see the path directory
-    Plug 'hrsh7th/cmp-nvim-lua'                                         " nvim-cmp source for neovim Lua API
-    Plug 'hrsh7th/cmp-cmdline'                                          " nvim-cmp source for vim's cmdline
-    Plug 'hrsh7th/nvim-cmp'                                             " The completion engine plugin
+    Plug 'rafamadriz/friendly-snippets'                                 " Snip Collection
+    Plug 'ray-x/lsp_signature.nvim'                                     " Class/Function Signatures
+    Plug 'onsails/lspkind-nvim'                                         " Show Icons in auto completer
 
     " All Other Plugins
     Plug 'kyazdani42/nvim-web-devicons'                                 " Icons to be used with other plugins
     Plug 'mfussenegger/nvim-jdtls'                                      " LSP java using eclipse's LSP
     Plug 'nvim-lualine/lualine.nvim'                                    " Status Line Display
     Plug 'kdheepak/tabline.nvim'                                        " Buffers are shown as tabs works with lualine
-    Plug 'mbbill/undotree'                                              " Undo tree plug in
+    Plug 'mbbill/undotree'                                              " Undo tree plug-in
     Plug 'sainnhe/sonokai'                                              " Colorscheme
     " Markdown Preview
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+
 call plug#end()
 
 " Nvim cmp configuration settings
@@ -165,6 +168,10 @@ lua <<EOF
   require('lspconfig')['jdtls'].setup {
     capabilities = capabilities
   }
+  -- Markdown LSP
+  require('lspconfig')['remark_ls'].setup {
+    capabilities = capabilities
+  }
   -- Javascript LSP
   require('lspconfig')['tsserver'].setup {
     capabilities = capabilities
@@ -256,15 +263,14 @@ nnoremap <leader>bp :bp<CR>
 nnoremap <leader>bf :bf<CR>
 nnoremap <leader>bl :bl<CR>
 
-" Colorscheme settings for neovim
-" sonokai_style: atlantis, andromeda, shusia, default, maia, espresso
-let g:sonokai_style = 'default'
-let g:sonokai_enable_italic = 1
-let g:sonokai_disable_italic_comment = 1
-colorscheme sonokai
-
 " Window settings
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 
+" Colorscheme settings for neovim
+" sonokai_style: atlantis, andromeda, shusia, default, maia, espresso
+let g:sonokai_style = 'andromeda'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
+colorscheme sonokai
