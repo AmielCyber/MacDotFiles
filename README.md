@@ -5,7 +5,7 @@ This is a reminder on how to setup my current configuration for other machines, 
 one of my friends who was curious about neovim.
 You are free to use this configuration, but cannot guarantee that it will work straight of the box.
 ### Screenshots
-![Neovim Configuration](https://github.com/AmielCyber/MacDotFiles/blob/main/screenShots/neovimConfigScreen.png)
+![Neovim Configuration](/screenShots/neovimConfigScreen.png)
 ### Dot Files Directory
 #### Github File Directory
 ```bash
@@ -74,7 +74,7 @@ My neovim configuration is inspired by the following members of the neovim commu
 * And many more!
 ## iTerm2 Configuration
 ### Screenshots
-![iTerm Configuration](https://github.com/AmielCyber/MacDotFiles/blob/main/screenShots/iTerm2ConfigScreen.png)
+![iTerm Configuration](/screenShots/iTerm2ConfigScreen.png)
 Desktop Wallpaper by [Alena Aenami](https://www.artstation.com/aenamiart)
 
 Following plugins for the zsh shell:
