@@ -4,63 +4,114 @@ one of my friends who was curious about neovim.
 You are free to use this configuration, but cannot guarantee that it will work straight of the box.
 ## Screenshots
 ![Neovim Configuration](https://github.com/AmielCyber/MacDotFiles/blob/main/screenShots/neovimConfigScreen.png)
+
 ## Dot Files Directory
+
 ### Github File Directory
+
 ```bash
 ├── README.md
 ├── iterm2
 │   └── colorschemes
 │       └── monokai_pro.itermcolors
-└── nvim
-    ├── init.vim
-    ├── plugged
-    │   └── text.txt
-    └── undodir
+├── nvim
+│   ├── README.md
+│   ├── after
+│   │   └── plugin
+│   │       └── pluginconfigs.lua
+│   ├── init.lua
+│   ├── lua
+│   │   ├── keymappings.lua
+│   │   ├── lsp.lua
+│   │   ├── plugins.lua
+│   │   └── vimsettings.lua
 ```
-### Actual Directory in Your Unix Home Directory
+
+### Actual Directory in Your Unix Home Directory After installation
+
 ```bash
 ~/
-└─── .config
-     ├── iterm2
-     │   └── colorschemes
-     │       └── monokai_pro.itermcolors
-     └── nvim
-         ├── init.vim
-         ├── plugged
-         └── undodir 
+├── .config
+│   ├── iterm2
+│   │   └── colorschemes
+│   │       └── monokai_pro.itermcolors
+│   └── nvim
+│       ├── after
+│       │   └── plugin
+│       │       └── pluginconfigs.lua
+│       ├── init.lua
+│       ├── lua
+│       │   ├── keymappings.lua
+│       │   ├── lsp.lua
+│       │   ├── plugins.lua
+│       │   └── vimsettings.lua
+│       └── plugin
+│           └── packer_compiled.lua
+└── .vim
+    └── undodir
 ```
+
 ## Neovim Setup
-1. Make sure you have the following directories in your .config home directory
-    * If not, then create those directories
-```bash 
+
+1. Recommended package installs using your preffered package manager. For example, using brew:
+   - `brew install git`
+   - `brew install neovim`
+     - Or through github [Install Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
+   - `brew install ripgrep`
+   - `brew install cmake`
+   - `brew install fd`
+
+2. [Install packer.nvim](https://github.com/wbthomason/packer.nvim)
+
+3. Copy the nvim directory into the `~/.config/` directory
+
+4. In Neovim run the following:
+   - `:PackerClean`
+   - `:PackerCompile`
+   - `:PackerInstall`
+
+5. Install the Luanguage Server Protocol for your languages
+   - LSP installation goes like this:
+     - First **install [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)'s** language parser for correct
+       color highlighting using this vim command `:TSInstall <language_to_install>`
+     - Then **install the Language Server Protocol** using the [nvim-lsp-installer](https://github.com/williamboman/nvim-lsp-installer)
+       plugin with the following vim command `:LSPInstall <language>` then choosing the luanguage server for that language
+       _ **Additional configuration may be required** for LSP configuration.
+       _ See [nvim-lspconfig/doc/server_configurations.md](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#remark_ls)
+       for dependencies and additional configuration for that particular server.
+
+6. Setup the capabilities for the LSP to run with the cmp plugin in the lua `cmp.setup({` function in the init.vim file
+   - Should be a simple line with LSP's defaults like this:
+     - `require['lspconfig']['YOUR_LANGUAGE_SERVER'].setup{ capabilities = capabilities}`
+       - You may need to add more to the body for more options to your liking or required configurations for that server
+       - Refer to the [nvim-lspconfig doc](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#remark_ls) for those configurations
+         or [mason.nvim](https://github.com/williamboman/mason.nvim)
+
+### Note:
+#### Undo directory plugin
+Neovim settings file in _~/.config/nvim/lua/vimsettings.lua_ will create the folder below
+
+```bash
 ~/
-└─── .config/
-     └── nvim/
-         ├── plugged/
-         └── undodir/ 
+└─── .vim/
+     └── undodir/
 ```
-2. Install Neovim
-    * [Installation Instructions](https://github.com/neovim/neovim/wiki/Installing-Neovim)
 
-3. Install Vim-Plug
-    * [vim-plug repo](https://github.com/junegunn/vim-plug)
-4. Copy the init.vim into the `~/.config/nvim/` directory or copy nvim folder to your `/.config/` directory
-5. In neovim run `:PlugInstall`
-6. Install Luanguage Server Protocol for your languages 
-    * LSP installation goes like this:
-        * First install [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)'s language parser for correct 
-        color highlighting using this vim command `:TSInstall <language_to_install>` 
-        * Then install the Language Server Protocol using the [nvim-lsp-installer](https://github.com/williamboman/nvim-lsp-installer)
-        plugin with the following vim command `:LSPInstall <language>` then choosing the luanguage server for that language 
-            * Note, that you may have to install some dependencies for that server if it fails to attach ([LSP plugins](https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins))
-7. Setup the cababilities for the LSP to run with the cmp plugin in the lua `cmp.setup({` funciton in the init.vim file 
-    * Should be a simple line with LSP's defaults like this: 
-        * `require['lspconfig']['YOUR_LANGUAGE_SERVER'].setup{ cababilities = capabilites}`
-        * You may need to add more to the body for more configurations to your liking
-#### Note:
-* Some plugins may have npm dependencies or other dependencies
-* My neovim configuration is inspired by the following members of the neovim community
-    * [ThePrimeagen](https://github.com/ThePrimeagen)
-    * [TJ DeVries](https://github.com/tjdevries)
-    * And many more!
+If you want the undodir to be somewhere else, then change this line
+`vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"`
+located in the directory _~/.config/nvim/lua/vimsettings.lua_ to your desired directory
 
+#### Plugin Dependencies
+
+Some plugins may have language package manager dependencies or other dependencies
+
+- Be sure to read the readme file for any plugin
+  - You can do so, by adding the github address to the short hand notation in the plugin section in ~/.config/nvim/lua/vimplugins.lua
+    - For example: `use 'neovim/nvim-lspconfig'` => https://github.com/neovim/nvim-lspconfig
+
+#### Inspired By
+My Neovim configuration is inspired by the following members of the neovim community
+
+- [ThePrimeagen](https://github.com/ThePrimeagen)
+- [TJ DeVries](https://github.com/tjdevries)
+- And many more!
