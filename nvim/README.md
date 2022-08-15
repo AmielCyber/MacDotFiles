@@ -14,17 +14,17 @@ You are free to use this configuration, but cannot guarantee that it will work s
 ├── iterm2
 │   └── colorschemes
 │       └── monokai_pro.itermcolors
-├── nvim
-│   ├── README.md
-│   ├── after
-│   │   └── plugin
-│   │       └── pluginconfigs.lua
-│   ├── init.lua
-│   ├── lua
-│   │   ├── keymappings.lua
-│   │   ├── lsp.lua
-│   │   ├── plugins.lua
-│   │   └── vimsettings.lua
+└── nvim
+    ├── README.md
+    ├── after
+    │   └── plugin
+    │       └── pluginconfigs.lua
+    ├── init.lua
+    └── lua
+        ├── keymappings.lua
+        ├── lsp.lua
+        ├── plugins.lua
+        └── vimsettings.lua
 ```
 
 ### Actual Directory in Your Unix Home Directory After installation

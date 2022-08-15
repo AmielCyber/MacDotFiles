@@ -148,7 +148,11 @@ cmp.setup {
 }
 
 -- LuaLine 
-require('lualine').setup()
+require('lualine').setup {
+  options = {
+    theme = 'onedark'
+  }
+}
 -- Load from friendly snippets
 require("luasnip.loaders.from_vscode").lazy_load()
 

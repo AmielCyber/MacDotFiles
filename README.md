@@ -21,17 +21,17 @@ You are free to use this configuration, but cannot guarantee that it will work s
 ├── iterm2
 │   └── colorschemes
 │       └── monokai_pro.itermcolors
-├── nvim
-│   ├── README.md
-│   ├── after
-│   │   └── plugin
-│   │       └── pluginconfigs.lua
-│   ├── init.lua
-│   ├── lua
-│   │   ├── keymappings.lua
-│   │   ├── lsp.lua
-│   │   ├── plugins.lua
-│   │   └── vimsettings.lua
+└── nvim
+    ├── README.md
+    ├── after
+    │   └── plugin
+    │       └── pluginconfigs.lua
+    ├── init.lua
+    └── lua
+        ├── keymappings.lua
+        ├── lsp.lua
+        ├── plugins.lua
+        └── vimsettings.lua
 ```
 
 #### Actual Directory in Your Unix Home Directory After installation
@@ -142,6 +142,6 @@ iTerm color
 
 ## TO DO
 
-I may add a vim configuration slightly adjusted from my linux terminal in the future.
+- [ ] Add a vim configuration slightly adjusted from my linux terminal in the future.
 
-[x] Separate neovim settings, plugins, mappings, and lua code in different files instead of having everything in a single init.vim file (done).
+- [x] Separate neovim settings, plugins, mappings, and lua code in different files instead of having everything in a single init.vim file. 

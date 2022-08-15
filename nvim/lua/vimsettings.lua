@@ -30,13 +30,29 @@ vim.g.netrw_browse_split = 2
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
--- Color Scheme
---vim.g.tokyonight_style = "storm"
+-- Color Scheme 
+
+-- Tokyo Night Dark Theme
+--vim.g.tokyonight_style = "night"
 --vim.g.tokyonight_italic_functions = true
 --vim.g.tokyonight_transparent = false
 --vim.g.tokyonight_transparent_sidebar = true
 --vim.cmd('colorscheme tokyonight')
 --vim.opt.background = 'dark'
---vim.g.everforest_background = 'hard'
+
+-- One Dark 
+require('onedark').setup {
+    style = 'deep'
+}
+require('onedark').load() 
+
+-- Catppuccin
+--vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+--require("catppuccin").setup()
+--vim.cmd('colorscheme catppuccin')
+
+-- Everforest Light Theme
+--vim.opt.background = 'light'
+--vim.g.everforest_background = 'soft'
 --vim.cmd('colorscheme everforest')
-require("one_monokai").setup({ transparent = false})
+

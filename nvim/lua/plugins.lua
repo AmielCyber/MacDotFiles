@@ -39,14 +39,15 @@ return require('packer').startup(function(use)
 
 	-- colorscheme
 	use 'folke/tokyonight.nvim'
+    use { "catppuccin/nvim", as = "catppuccin" }
+    use 'navarasu/onedark.nvim'
+    -- Good light theme
     use 'sainnhe/everforest'
-    use 'cpea2506/one_monokai.nvim'
 
     -- All other Plugins
     use 'nvim-lualine/lualine.nvim'                                 -- Status Line Display
     use 'mbbill/undotree'                                           -- Undo tree plug-in
     use "windwp/nvim-autopairs"                                     -- Auto pairs tags
-    use 'navarasu/onedark.nvim'
     use 'kdheepak/tabline.nvim'
     use 'windwp/nvim-ts-autotag'
     -- Markdown Preview
